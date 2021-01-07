@@ -21,6 +21,7 @@ type Organization struct {
 	CreatedAt          time.Time              `json:"created_at,omitempty"`
 	UpdatedAt          time.Time              `json:"updated_at,omitempty"`
 	OrganizationFields map[string]interface{} `json:"organization_fields,omitempty"`
+	ExternalID         string                 `json:"external_id,omitempty"`
 }
 
 // OrganizationListOptions is options for GetOrganizations
