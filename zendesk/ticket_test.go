@@ -118,10 +118,10 @@ func TestGetTicketWithCustomFields(t *testing.T) {
 	if ticket.ID != expectedID {
 		t.Fatalf("Returned ticket does not have the expected ID %d. Ticket id is %d", expectedID, ticket.ID)
 	}
-	if ticket.CustomFields == nil || len(ticket.CustomFields) == 0 {
+	if ticket.CustomFields == nil || len(*ticket.CustomFields) == 0 {
 		t.Fatalf("Returned ticket does not have the expected custom fields.")
 	}
-	for _, cf := range ticket.CustomFields {
+	for _, cf := range *ticket.CustomFields {
 		switch cf.Value.(type) {
 		case string:
 			expectedCustomFieldValue := "Custom field value for testing"
@@ -174,9 +174,10 @@ func TestCreateTicket(t *testing.T) {
 	client := newTestClient(mockAPI)
 	defer mockAPI.Close()
 
+	ticketSubject := "nyanyanyanya"
 	ticket, err := client.CreateTicket(ctx, Ticket{
-		Subject: "nyanyanyanya",
-		Comment: TicketComment{
+		Subject: &ticketSubject,
+		Comment: &TicketComment{
 			Body: "(●ↀ ω ↀ )",
 		},
 	})
